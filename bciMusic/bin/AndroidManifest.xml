@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.aiworker.bcimusic"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk        android:minSdkVersion="15" />
+    
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+  	<uses-permission android:name="android.permission.INTERNET" />
+  	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" /> 
+    <uses-permission android:name="com.google.android.glass.permission.DEVELOPMENT" />
+        
+ 	<uses-feature android:name="android.hardware.camera" />
+ 	<uses-feature android:name="android.hardware.camera.autofocus" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+     
+        android:background="@android:color/transparent"  >
+        <activity
+            android:name="com.aiworker.bcimusic.MainActivity"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            android:screenOrientation="landscape" 
+            android:background="@android:color/transparent"
+            android:label="@string/app_name"  >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        
+        
+        <service android:exported="false" android:name=".MusicService">
+            <intent-filter>
+                <action android:name="com.aiworker.bcimusic.action.TOGGLE_PLAYBACK" />
+                <action android:name="com.aiworker.bcimusic.action.PLAY" />
+                <action android:name="com.aiworker.bcimusic.action.STOP" />
+                <action android:name="com.aiworker.bcimusic.action.PAUSE" />
+                <action android:name="com.aiworker.bcimusic.action.SKIP" />
+                <action android:name="com.aiworker.bcimusic.action.REWIND" />                
+            </intent-filter>
+            
+            <intent-filter>
+                <action android:name="com.aiworker.bcimusic.action.URL" />
+                <data android:scheme="http" />
+            </intent-filter>
+        </service>
+        
+        <receiver android:name=".MusicIntentReceiver">
+            <intent-filter>
+                <action android:name="android.media.AUDIO_BECOMING_NOISY" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.MEDIA_BUTTON" />
+            </intent-filter>
+        </receiver>
+        
+        
+    </application>
+
+</manifest>
